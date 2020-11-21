@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import api from '../../services/api'
-
+import CharacterList from '../../components/home/CharacterList'
 
 export default class Home extends Component {
   constructor(props) {
@@ -10,17 +9,16 @@ export default class Home extends Component {
     }
   }
 
-  async componentDidMount() {
-  }
-
-  fetchCharacters = async (concatState = true) => {
-  };
-
   render() {
     return (
       <div className="home-page">
         <div className="container">
-          <h1>Home</h1>
+          <h1>Busaca de personagens</h1>
+          <div className="search-box">
+            <p>Nome do personagem</p>
+            <input type="text" className="form-control" placeholder="Search"/>
+          </div>
+          <CharacterList></CharacterList>
         </div>
       </div>
     )

@@ -1,2 +1,26 @@
 .home-page {
+  h1 {
+    margin-top: gr(40);
+    color: #555555;
+    font-family: 'PT Sans Caption';
+    font-weight: 700;
+  }
+  .search-box{
+    max-width: gr(300);
+    margin-top: 16px;
+    p {
+      color: #555555;
+      font-size: gr(16);
+      font-family: 'PT Sans Caption';
+      font-weight: 700;
+    }
+    input {
+      @include input-placeholder {
+        color: #8E8E8E;
+        font-family: 'PT Sans';
+        font-size: gr(14);
+        font-style: italic;
+      }
+    }
+  }
 }

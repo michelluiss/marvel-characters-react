@@ -1,0 +1,28 @@
+.character-card {
+  padding: gr(15) gr(15);
+  background: #fff;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  .character-column {
+    display: flex;
+    align-items: center;
+    .image {
+      margin-right: gr(25);
+      img {
+        width: 48px;
+        height: 48px;
+        border-radius: 4px;
+      }
+    }
+    .character-name {
+      font-size: gr(16);
+      color: #555555;
+      font-weight: 700;
+    }
+  }
+  .events-column,
+  .series-column {
+    font-size: gr(14);
+    color: #555555;
+  }
+}
