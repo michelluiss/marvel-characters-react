@@ -1,7 +1,38 @@
 .footer {
   padding: gr(15);
   text-align: center;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   .pagination {
     justify-content: center;
+    margin: 0;
+    .page-link {
+      background: #F5F5F5;
+      margin-right: 10px;
+      border-color: #E5E5E5;
+      color: #8E8E8E;
+      width: 40px;
+      height: 32px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: gr(14);
+      transition: all linear 0.3s;
+      border-radius: 3px;
+      &:hover {
+        background: #167ABC;
+        color: #fff;
+      }
+      &.arrow-button {
+        background: none;
+        border: 0;
+        &:hover {
+          color: #167ABC;
+        }
+      }
+    }
   }
 }

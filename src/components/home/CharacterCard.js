@@ -7,7 +7,7 @@ export default function CharacterCard({ character }) {
       <div className="row">
         <div className="col-4 character-column">
           <div className="image">
-            {/* <img src={character.thumbnail.path} alt="Foto do personagem"></img> */}
+            <img src={character.thumbnail.path + '.' + character.thumbnail.extension} alt="Foto do personagem"></img>
           </div>
           <span className="character-name">{character.name}</span>
         </div>

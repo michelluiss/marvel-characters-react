@@ -18,8 +18,8 @@ export default class Home extends Component {
             <p>Nome do personagem</p>
             <input type="text" className="form-control" placeholder="Search"/>
           </div>
-          <CharacterList></CharacterList>
         </div>
+        <CharacterList></CharacterList>
       </div>
     )
   }
