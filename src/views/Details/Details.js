@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import api from '../../services/api'
 import md5 from 'js-md5'
+import DetailsCard from '../../components/details/DetailsCard'
 
 
 export default class CharacterList extends Component {
@@ -9,13 +10,19 @@ export default class CharacterList extends Component {
     this.state = {
       character: [],
       id: props.match.params.id,
-      comics: []
+      comics: [],
+      events: [],
+      series: [],
+      stories: []
     }
   }
 
   async componentDidMount() {
-    await this.fetchCharacter()
+    this.fetchCharacter()
     this.fetchComics()
+    this.fetchEvents()
+    this.fetchSeries()
+    this.fetchStories()
   }
 
   defineParams = () => {
@@ -53,36 +60,98 @@ export default class CharacterList extends Component {
       })
   }
 
+  fetchSeries = () => {
+    const params = this.defineParams()
+    api.get(`/v1/public/characters/${this.state.id}/series`, { params })
+      .then(response => {
+        // console.log(response)
+        this.setState({ series: [...response.data.data.results] })
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  fetchStories = () => {
+    const params = this.defineParams()
+    api.get(`/v1/public/characters/${this.state.id}/stories`, { params })
+      .then(response => {
+        // console.log(response)
+        this.setState({ stories: [...response.data.data.results] })
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  fetchEvents = () => {
+    const params = this.defineParams()
+    api.get(`/v1/public/characters/${this.state.id}/events`, { params })
+      .then(response => {
+        this.setState({ events: [...response.data.data.results] })
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
   render() {
-    if (this.state.character.length === 0 && this.state.comics.length === 0) return <div>Buscando dados</div>
+    if (this.state.character.length === 0 &&
+      this.state.comics.length === 0 &&
+      this.state.series.length === 0 &&
+      this.state.events.length === 0 &&
+      this.state.stories.length === 0) return <div>Buscando dados</div>
     return(
       <div className="details-page">
         <div className="container">
-          <div className="details-content">
-            <div className="image">
+          <div className="details-content pb-5">
+            <div className="image mb-3">
               <img src={this.state.character.thumbnail.path + '.' + this.state.character.thumbnail.extension} alt="Foto do personagem"></img>
             </div>
             <h1 className="text-center">Nome: {this.state.character.name}</h1>
-            <div className="d-flex mt-5">
-              <div className="col-12">
-                <h3>Comics</h3>
-                {this.state.comics.map(item => {
+            <div className="mt-4">
+              <h3>Comics</h3>
+              <div className="d-flex flex-wrap">
+                {this.state.comics.length > 0 ? this.state.comics.map(item => {
                   return (
-                    <div class="card mb-3">
-                      <div class="row no-gutters">
-                        <div class="col-md-4">
-                          <img src={item.images[0].path + '.' + item.images[0].extension} class="card-img-bottom" alt="Foto do quadrinho" />
-                        </div>
-                        <div class="col-md-8">
-                          <div class="card-body">
-                            <h5 class="card-title">{item.title}</h5>
-                            <p class="card-text">{item.description}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <DetailsCard item={item} propertyImage="image"></DetailsCard>
                   )
-                })}
+                }) : <div className="px-3">Nenhum Comics registrado</div>
+                }
+              </div>
+            </div>
+            <div className="mt-4">
+              <h3>Series</h3>
+              <div className="d-flex flex-wrap">
+                {this.state.series.length > 0 ? this.state.series.map(item => {
+                  return (
+                    <DetailsCard item={item} propertyImage="thumbnail"></DetailsCard>
+                  )
+                }) : <div className="px-3">Nenhuma Serie registrada</div>
+                }
+              </div>
+            </div>
+            <div className="mt-4">
+              <h3>Stories</h3>
+              <div className="d-flex flex-wrap">
+                {this.state.stories.length > 0 ? this.state.stories.map(item => {
+                  return (
+                    <DetailsCard item={item} propertyImage="thumbnail"></DetailsCard>
+                  )
+                }) : <div className="px-3">Nenhum Stories registrado</div>
+                }
+              </div>
+            </div>
+            <div className="mt-4">
+              <h3>Events</h3>
+              <div className="d-flex flex-wrap">
+                {this.state.events.length > 0 ? 
+                  this.state.events.map(item => {
+                    return (
+                      <DetailsCard item={item} propertyImage="thumbnail"></DetailsCard>
+                    )
+                  }) : <div className="px-3">Nenhum Evento registrado</div>
+                }
               </div>
             </div>
           </div>
