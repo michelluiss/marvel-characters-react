@@ -76,7 +76,6 @@ export default class CharacterList extends Component {
     const params = this.defineParams()
     api.get(`/v1/public/characters/${this.state.id}/stories`, { params })
       .then(response => {
-        // console.log(response)
         this.setState({ stories: [...response.data.data.results] })
       })
       .catch(error => {

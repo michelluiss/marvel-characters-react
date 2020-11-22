@@ -1,23 +1,22 @@
 import React from 'react'
 
-function Image({ data, propertyImage }) {
-  if (propertyImage === 'thumbnail' && data.thumbnail) {
+function Image({ data }) {
+  if (data.thumbnail) {
     return <img src={data.thumbnail.path + '.' + data.thumbnail.extension} className="card-img-bottom" alt="Foto do quadrinho" />
-  } else if (propertyImage === 'image') {
-    return <img src={data.images[0].path + '.' + data.images[0].extension} className="card-img-bottom" alt="Foto do quadrinho" />
   } else return null
 }
 
-export default function DetailsCard({ item, propertyImage }) {
+export default function DetailsCard({ item }) {
   if (!item) return null
   return(
     <div className="col-6">
       <div className="card mb-3">
         <div className="row no-gutters">
-          <div className="col-md-4">
-            <Image data={item} propertyImage={propertyImage}></Image>
-          </div>
-          <div className="col-md-8">
+          {item.thumbnail ?
+            <div className="col-md-4"><Image data={item}></Image></div>
+            : null
+          }
+          <div className={item.thumbnail ? "col-md-8" : "col-md-12"}>
             <div className="card-body">
               <h5 className="card-title">{item.title}</h5>
               <p className="card-text">{item.description}</p>
