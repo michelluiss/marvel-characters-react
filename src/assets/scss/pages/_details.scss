@@ -1,0 +1,26 @@
+.details-page {
+  .details-content {
+    margin-top: gr(50);
+    background: #fff;
+    border-radius: 10px;
+    .image {
+      text-align: center;
+      img {
+        max-width: 50%;
+      }
+    }
+    h1 {
+      font-size: gr(32);
+      font-weight: 700;
+      color: #555555;
+      font-family: 'PT Sans Caption';
+    }
+    h3 {
+      font-size: gr(25);
+      font-weight: 700;
+      color: #555555;
+      font-family: 'PT Sans Caption';
+      margin-bottom: 15px;
+    }
+  }
+}

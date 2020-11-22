@@ -1,9 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function CharacterCard({ character }) {
   if (!character) return null
   return(
-    <div className="character-card">
+    <Link to={`/details/${character.id}`} className="character-card">
       <div className="row">
         <div className="col-4 character-column">
           <div className="image">
@@ -22,6 +23,6 @@ export default function CharacterCard({ character }) {
           })}
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
