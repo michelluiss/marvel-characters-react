@@ -14,8 +14,8 @@ export default class Home extends Component {
     return (
       <div className="home-page">
         <div className="container">
-          <h1>Busaca de personagens</h1>
-          <div className="search-box">
+          <h1 className="text-center text-md-left">Busaca de personagens</h1>
+          <div className="search-box text-md-left">
             <p>Nome do personagem</p>
             <input type="text"
               className="form-control"

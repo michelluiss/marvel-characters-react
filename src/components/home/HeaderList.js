@@ -7,10 +7,10 @@ export default function HeaderList() {
         <div className="col-4">
           <span>Personagens</span>
         </div>
-        <div className="col-4">
+        <div className="col-4 d-none d-md-block">
           <span>Séries</span>
         </div>
-        <div className="col-4">
+        <div className="col-4 d-none d-md-block">
           <span>Eventos</span>
         </div>
       </div>

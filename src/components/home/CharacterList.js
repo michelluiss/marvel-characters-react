@@ -23,7 +23,7 @@ export default class CharacterList extends Component {
     this.fetchCharacters(params)
   }
 
-  componentWillReceiveProps(props) {
+  static UNSAFE_componentWillReceiveProps(props) {
     const params = this.defaultParams()
     if (props.search !== '') {
       params.name = props.search

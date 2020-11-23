@@ -4,7 +4,14 @@
     display: flex;
     width: 100%;
     padding: 20px 40px;
+    @media (max-width: 576px) {
+      flex-wrap: nowrap;
+      flex-direction: column;
+    }
     .logo {
+      @media (max-width: 768px) {
+        text-align: center;
+      }
       img {
         max-width: 100px;
       }
@@ -12,11 +19,17 @@
     .menu {
       color: #555555;
       text-align: right;
-      p {
+      @media (max-width: 576px) {
+        text-align: center;
+      }
+      span {
         font-family: 'PT Sans Caption', sans-serif;
         font-size: gr(14);
         strong {
           font-weight: 700;
+          @media (max-width: 768px) {
+            display: block;
+          }
         }
       }
     }

@@ -9,7 +9,7 @@ function Image({ data }) {
 export default function DetailsCard({ item }) {
   if (!item) return null
   return(
-    <div className="col-6">
+    <div className="col-12 col-sm-6">
       <div className="card mb-3">
         <div className="row no-gutters">
           {item.thumbnail ?
