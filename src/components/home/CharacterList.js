@@ -13,7 +13,7 @@ export default class CharacterList extends Component {
       limit: 10,
       offset: 0,
       total: 0,
-      pagesNav: [
+      pageNav: [
         {
           page: 1,
           offset: 0
@@ -28,11 +28,11 @@ export default class CharacterList extends Component {
         },
         {
           page: 4,
-          offset: 40
+          offset: 30
         },
         {
           page: 5,
-          offset: 50
+          offset: 40
         }
       ]
     }
@@ -108,6 +108,32 @@ export default class CharacterList extends Component {
           offset: response.data.data.offset,
           count: response.data.data.count
         })
+        if (this.state.offset > this.state.pageNav[4].offset) {
+          this.setState({
+            pageNav: [
+              {
+                page: (this.state.offset - 20) / 10 + 1,
+                offset: this.state.offset - 20
+              },
+              {
+                page: (this.state.offset - 10) / 10 + 1,
+                offset: this.state.offset - 10
+              },
+              {
+                page: this.state.offset / 10 + 1,
+                offset: this.state.offset
+              },
+              {
+                page: (this.state.offset + 10) / 10 + 1,
+                offset: this.state.offset + 10
+              },
+              {
+                page: (this.state.offset + 20) / 10 + 1,
+                offset: this.state.offset + 20
+              }
+            ]
+          })
+        }
       })
       .catch(error => {
         console.log(error)
@@ -130,7 +156,7 @@ export default class CharacterList extends Component {
               <li className="page-item button-icons">
                 <button className="page-link arrow-button" onClick={() => this.prevPage()}>&lt;</button>
               </li>
-              {this.state.pagesNav.map(item => {
+              {this.state.pageNav.map(item => {
                 return (<li className={item.page === (this.state.offset / this.state.limit) + 1 ? 'page-item active' : 'page-item'}>
                   <button className="page-link" onClick={() => this.goToPage(item)}>{item.page}</button>
                 </li>)
