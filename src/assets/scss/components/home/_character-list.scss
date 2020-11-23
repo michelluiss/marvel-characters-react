@@ -1,4 +1,9 @@
 .character-list {
   margin-top: gr(40);
   margin-bottom: gr(100);
+  .feedback-load-characters {
+    text-align: center;
+    font-weight: 700;
+    font-size: gr(25);
+  }
 }
