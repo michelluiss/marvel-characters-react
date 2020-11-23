@@ -1,6 +1,8 @@
 .details-page {
+  .button-goBack {
+    cursor: pointer;
+  }
   .details-content {
-    margin-top: gr(50);
     background: #fff;
     border-radius: 10px;
     .image {

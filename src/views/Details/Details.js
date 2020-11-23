@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import api from '../../services/api'
 import md5 from 'js-md5'
 import DetailsCard from '../../components/details/DetailsCard'
+import { BsBoxArrowLeft } from 'react-icons/bs';
 
 
 export default class CharacterList extends Component {
@@ -93,6 +94,10 @@ export default class CharacterList extends Component {
       })
   }
 
+  goBack = () => {
+    window.history.back()
+  }
+
   render() {
     if (this.state.character.length === 0 &&
       this.state.comics.length === 0 &&
@@ -102,7 +107,8 @@ export default class CharacterList extends Component {
     return(
       <div className="details-page">
         <div className="container">
-          <div className="details-content pb-5">
+          <BsBoxArrowLeft size="30" className="button-goBack mt-2 ml-1" onClick={() => this.goBack()}/>
+          <div className="details-content pb-5 mt-2">
             <div className="image mb-3">
               <img src={this.state.character.thumbnail.path + '.' + this.state.character.thumbnail.extension} alt="Foto do personagem"></img>
             </div>
