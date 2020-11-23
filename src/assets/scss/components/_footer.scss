@@ -8,13 +8,19 @@
   .pagination {
     justify-content: center;
     margin: 0;
+    .page-item {
+      &.button-icons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    }
     .page-link {
       background: #F5F5F5;
       margin-right: 10px;
       border-color: #E5E5E5;
       color: #8E8E8E;
-      width: 40px;
-      height: 32px;
       padding: 0;
       display: flex;
       align-items: center;
@@ -22,6 +28,10 @@
       font-size: gr(14);
       transition: all linear 0.3s;
       border-radius: 3px;
+      &:not(.icons) {
+        width: 40px;
+        height: 32px;
+      }
       &:hover {
         background: #167ABC;
         color: #fff;

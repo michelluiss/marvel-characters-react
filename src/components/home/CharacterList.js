@@ -3,7 +3,6 @@ import HeaderList from '../../components/home/HeaderList'
 import CharacterCard from '../../components/home/CharacterCard'
 import api from '../../services/api'
 import md5 from 'js-md5'
-
 export default class CharacterList extends Component {
   
   constructor(props) {
@@ -12,7 +11,8 @@ export default class CharacterList extends Component {
       characters: null,
       count: null,
       limit: 10,
-      offset: 0
+      offset: 0,
+      total: 0
     }
   }
 
@@ -44,20 +44,40 @@ export default class CharacterList extends Component {
     }
   }
 
-  // nextPage = () => {
-  //   params.offset += 10
-  //   this.fetchCharacters(params)
-  // }
+  nextPage = (opt) => {
+    const params = this.defaultParams()
+    if (opt === 'all') {
+      params.offset = this.state.total - 10
+      params.limit = 10
+    } else {
+      params.offset = this.state.offset + 10
+      params.limit = 10
+    }
+    this.fetchCharacters(params)
+  }
 
-  // prevPage = () => {
-  //   params.offset -= 10
-  //   this.fetchCharacters(params)
-  // }
+  prevPage = (opt) => {
+    const params = this.defaultParams()
+    if (opt === 'all') {
+      params.offset = 0
+      params.limit = 10
+    } else {
+      params.offset = this.state.offset - 10
+      params.limit = 10
+    }
+    this.fetchCharacters(params)
+  }
 
   fetchCharacters = (params) => {
     api.get('/v1/public/characters', { params })
       .then(response => {
-        this.setState({ characters: [...response.data.data.results] })
+        console.log(this.state)
+        this.setState({
+          characters: [...response.data.data.results],
+          total: response.data.data.total,
+          offset: this.state.offset + 10,
+          count: response.data.data.count
+        })
       })
       .catch(error => {
         console.log(error)
@@ -75,7 +95,10 @@ export default class CharacterList extends Component {
           <nav>
             <ul className="pagination">
               <li className="page-item">
-                <button className="page-link arrow-button" onClick={() => this.prevPage()}>&laquo;</button>
+                <button className="page-link arrow-button" onClick={() => this.prevPage('all')}>&laquo;</button>
+              </li>
+              <li className="page-item button-icons">
+                <button className="page-link arrow-button" onClick={() => this.prevPage()}>&lt;</button>
               </li>
               <li className="page-item">
                 <button className="page-link" onClick={() => this.nextPage()}>1</button>
@@ -83,8 +106,17 @@ export default class CharacterList extends Component {
               <li className="page-item">
                 <button className="page-link" onClick={() => this.nextPage()}>2</button>
               </li>
+              <li className="page-item button-icons" disabled={this.state.offset === (this.state.total - 10)}>
+                <button className="page-link arrow-button"
+                  onClick={() => this.nextPage()}
+                  disabled={this.state.offset === (this.state.total - 10)}
+                >&gt;</button>
+              </li>
               <li className="page-item">
-                <button className="page-link arrow-button" onClick={() => this.nextPage()}>&raquo;</button>
+                <button className="page-link arrow-button"
+                  onClick={() => this.nextPage('all')}
+                  disabled={this.state.offset === (this.state.total - 10)}
+                >&raquo;</button>
               </li>
             </ul>
           </nav>

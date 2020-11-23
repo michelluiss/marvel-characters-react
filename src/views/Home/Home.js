@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import CharacterList from '../../components/home/CharacterList'
-// import { FaBeer } from 'react-icons/fa';
 
 export default class Home extends Component {
   constructor(props) {
