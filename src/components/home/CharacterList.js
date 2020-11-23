@@ -69,7 +69,7 @@ export default class CharacterList extends Component {
   nextPage = (opt = '') => {
     const params = this.defaultParams()
     if (opt === 'all') {
-      params.offset = this.state.total - 10
+      params.offset = this.state.total - 3
       params.limit = 10
     } else {
       params.offset = this.state.offset + 10
