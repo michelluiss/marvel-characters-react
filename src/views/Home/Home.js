@@ -13,7 +13,7 @@ export default class Home extends Component {
     return (
       <div className="home-page">
         <div className="container">
-          <h1 className="text-center text-md-left">Busaca de personagens</h1>
+          <h1 className="text-center text-md-left">Busca de personagens</h1>
           <div className="search-box text-md-left">
             <p>Nome do personagem</p>
             <input type="text"

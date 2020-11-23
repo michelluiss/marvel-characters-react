@@ -9,10 +9,32 @@ export default class CharacterList extends Component {
     super(props)
     this.state = {
       characters: null,
-      count: null,
+      count: 0,
       limit: 10,
       offset: 0,
-      total: 0
+      total: 0,
+      pagesNav: [
+        {
+          page: 1,
+          offset: 0
+        },
+        {
+          page: 2,
+          offset: 10
+        },
+        {
+          page: 3,
+          offset: 20
+        },
+        {
+          page: 4,
+          offset: 40
+        },
+        {
+          page: 5,
+          offset: 50
+        }
+      ]
     }
   }
 
@@ -44,7 +66,8 @@ export default class CharacterList extends Component {
     }
   }
 
-  nextPage = (opt) => {
+  nextPage = (opt = '') => {
+    console.log(this.state.offset)
     const params = this.defaultParams()
     if (opt === 'all') {
       params.offset = this.state.total - 10
@@ -68,14 +91,21 @@ export default class CharacterList extends Component {
     this.fetchCharacters(params)
   }
 
+  goToPage = (page) => {
+    const params = this.defaultParams()
+    params.offset = page.offset
+    params.limit = 10
+    this.fetchCharacters(params)
+  }
+
   fetchCharacters = (params) => {
     api.get('/v1/public/characters', { params })
       .then(response => {
-        console.log(this.state)
+        console.log(response.data.data)
         this.setState({
           characters: [...response.data.data.results],
           total: response.data.data.total,
-          offset: this.state.offset + 10,
+          offset: response.data.data.offset,
           count: response.data.data.count
         })
       })
@@ -100,13 +130,12 @@ export default class CharacterList extends Component {
               <li className="page-item button-icons">
                 <button className="page-link arrow-button" onClick={() => this.prevPage()}>&lt;</button>
               </li>
-              <li className="page-item">
-                <button className="page-link" onClick={() => this.nextPage()}>1</button>
-              </li>
-              <li className="page-item">
-                <button className="page-link" onClick={() => this.nextPage()}>2</button>
-              </li>
-              <li className="page-item button-icons" disabled={this.state.offset === (this.state.total - 10)}>
+              {this.state.pagesNav.map(item => {
+                return (<li className={item.page === (this.state.offset / this.state.limit) + 1 ? 'page-item active' : 'page-item'}>
+                  <button className="page-link" onClick={() => this.goToPage(item)}>{item.page}</button>
+                </li>)
+              })}
+              <li className="page-item button-icons">
                 <button className="page-link arrow-button"
                   onClick={() => this.nextPage()}
                   disabled={this.state.offset === (this.state.total - 10)}

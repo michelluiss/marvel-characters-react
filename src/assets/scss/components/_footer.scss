@@ -9,6 +9,10 @@
     justify-content: center;
     margin: 0;
     .page-item {
+      &.active .page-link {
+        background: #167ABC;
+        color: #fff;
+      }
       &.button-icons {
         display: flex;
         align-items: center;
