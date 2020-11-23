@@ -67,7 +67,6 @@ export default class CharacterList extends Component {
   }
 
   nextPage = (opt = '') => {
-    console.log(this.state.offset)
     const params = this.defaultParams()
     if (opt === 'all') {
       params.offset = this.state.total - 10
@@ -101,7 +100,6 @@ export default class CharacterList extends Component {
   fetchCharacters = (params) => {
     api.get('/v1/public/characters', { params })
       .then(response => {
-        console.log(response.data.data)
         this.setState({
           characters: [...response.data.data.results],
           total: response.data.data.total,
@@ -109,6 +107,31 @@ export default class CharacterList extends Component {
           count: response.data.data.count
         })
         if (this.state.offset > this.state.pageNav[4].offset) {
+          this.setState({
+            pageNav: [
+              {
+                page: (this.state.offset - 20) / 10 + 1,
+                offset: this.state.offset - 20
+              },
+              {
+                page: (this.state.offset - 10) / 10 + 1,
+                offset: this.state.offset - 10
+              },
+              {
+                page: this.state.offset / 10 + 1,
+                offset: this.state.offset
+              },
+              {
+                page: (this.state.offset + 10) / 10 + 1,
+                offset: this.state.offset + 10
+              },
+              {
+                page: (this.state.offset + 20) / 10 + 1,
+                offset: this.state.offset + 20
+              }
+            ]
+          })
+        } else if (this.state.offset < this.state.pageNav[0].offset) {
           this.setState({
             pageNav: [
               {
